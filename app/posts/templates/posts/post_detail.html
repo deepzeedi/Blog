@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content_title %}
+
+        {{ post.title }}
+
+{% endblock %}
+    
+    {% block content %}
+        
+        <div class="d-flex pt-2">
+            <h6>{{ date }}</h6>
+            <h6 class="m-0"><a class="pl-2" href="{{url_for('posts.edit_post', slug=post.slug)}}">edit</a></h6>     
+        </div>
+    
+{{ post.body|safe }}
+
+{% endblock %}

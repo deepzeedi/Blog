@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>
+         {% block title %}
+         {% endblock %} | Blog
+      </title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/datatables.min.css"/>
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed:300i,400,700&display=swap" rel="stylesheet">
+      <style>
+         head, h1, body {
+         font-family: 'IBM Plex Sans Condensed', sans-serif;
+         }
+         .admin {
+         font-weight: bold;
+         }
+         h1, h2, h3, h4, h5 {
+         font-weight: bold;
+         }
+         h6 {
+         font-weight: italic;
+         font-size: 1em;
+         }
+      </style>
+   </head>
+   <body style="html {position: relative; min-height: 100%;}">
+      <div>
+         <nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                     <a class="nav-link" href="{{ url_for('posts.index')}}">Posts<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                     {% if not current_user.has_role('admin') %}
+                     <a class="nav-link" href="{{ url_for('login')}}">Log In</a>
+                     {% else %}
+                     <a class="nav-link" href="/logout">Log Out</a>
+                     {% endif %}
+                  </li>
+                  <li class="nav-item">
+                     {% if current_user.has_role('admin') %}
+                     <a class="nav-link text-primary admin" href="/admin">Admin</a>
+                     {% endif %}
+                  </li>
+               </ul>
+               <form class="form-inline my-2 my-lg-0" method="GET">
+                  <div class="form-group">
+                     <input class="form-control mr-sm-2" type="search" placeholder="Find..." aria-label="Search" name="q" value="{{ request.args.get('q', '') }}">
+                  </div>
+                  <button type="button" class="btn btn-light">Search</button>
+               </form>
+            </div>
+         </nav>
+      </div>
+      <div>
+         <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" >
+               {% if current_user.has_role('admin') %}
+               <a href="{{ url_for('posts.create_post')}}">+ Add post</a>
+               {% endif %}
+            </ol>
+         </nav>
+      </div>
+      <div class="container">
+         <div class="container py-3">
+            <h1>
+               {% block content_title %}
+               {% endblock %}
+            </h1>
+            <p>
+               {% block content %}
+               {% endblock %}
+            </p>
+         </div>
+      </div>
+      <footer class="fixed-bottom text-center border-top p-3 ">
+         <style>
+            footer {
+            background-color: whitesmoke;
+            }
+         </style>
+         <a class="d-inline-flex mr-md-4" href="/about-me">About Me</a>|<a class="d-inline-flex ml-md-4" href="/contacts">Contacts</a>
+      </footer>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+         crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+         crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+         crossorigin="anonymous"></script>
+      
+   </body>
+</html>

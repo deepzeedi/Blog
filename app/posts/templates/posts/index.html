@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    blueprint index html
+{% endblock %}
+
+{% block content_title %}
+    Posts
+{% endblock %}
+
+{% block content %}
+    
+    {% for post in pages.items %}
+
+        <h4>
+            <a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post.title }}</a>
+        </h4>
+        <h6 class="font-italic ">{{ post.created.strftime('%B %d, %Y (%H:%M)') }}</h6>
+        <p>
+          {{ post.body[:255]|safe +'...' }}
+      </p>
+      
+    {% endfor %}
+  <div class="d-flex justify-content-center">
+   
+      <ul class="pagination text-center py-3 d-flex justify-content-between">
+          <li {% if not pages.has_prev %} class="disabled" {% endif %}>
+          <a class="page-link" href="./?page={{ pages.prev_num }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+          </li>
+
+        {% for page in pages.iter_pages() %}
+          <li {% if page == pages.page %} class="border border-primary " {% endif %}>
+            
+            <a class="page-link" href="./?page={{ page }}">{{ page }}<span class="sr-only">{current}</span></a>
+          </li>
+        {% endfor %}
+        
+          <li {% if not pages.has_next %} class="disabled" {% endif %}>
+            <a class="page-link" href="./?page={{ pages.next_num }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>         
+          </li>
+      </ul>
+   
+
+      
+  </div> 
+
+
+{% endblock %}
