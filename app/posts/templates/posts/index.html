@@ -15,7 +15,7 @@
         <h4>
             <a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post.title }}</a>
         </h4>
-        <h6 class="font-italic ">{{ post.created.strftime('%B %d, %Y (%H:%M)') }}</h6>
+        <h6 class="font-italic text-secondary">{{ post.created.strftime('%B %d, %Y (%H:%M)') }}</h6>
         <p>
           {{ post.body[:255]|safe +'...' }}
       </p>

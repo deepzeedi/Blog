@@ -58,7 +58,7 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 class PostAdminView(AdminMixin, BaseModelView):
     @expose('/')
     def index(self):
-        return self.render('/admin/posts.html')
+        return self.render('admin/post.html')
 
 
 
@@ -69,14 +69,14 @@ admin = Admin(app, template_mode='bootstrap3')
 
 
 #admin.add_view(MyView(name='Custom Views', endpoint='customviews'))
-#admin.add_view(PostAdminView(Post, db.session))
+admin.add_view(PostAdminView(Post, db.session))
 #admin.add_view(MyModelView(Role, db.session))
 #admin.add_view(MyModelView(User, db.session))
 
 # подключаем вьюхи, ссылки на каждую таблицу в шапке
-admin.add_view(ModelView(Role, db.session))
+#admin.add_view(ModelView(Role, db.session))
 admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Post, db.session))
+#admin.add_view(ModelView(Post, db.session))
 
 
 

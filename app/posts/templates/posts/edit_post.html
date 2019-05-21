@@ -12,19 +12,24 @@
    
     <div>
         <form action="{{url_for('posts.edit_post', slug=post.slug)}}" method="POST">
+                
+
             
-            {% for field in form %}
 
                 <div class="form-group">
-
-                    {{field.label(class='control-label')}}
-                    {{field(class='form-control', rows='20')}}
+                    
+                    {{form.title(class='form-control control-label')}}
+                    <br>
+                    {{form.body(class='form-control', rows='20', id='editor')}}
 
                 </div>
 
-            {% endfor %}
+        
                 <button type="submit" class="btm pl-5 pr-5">Edit</button>
         </form>
     </div>
-
+    <script src="//cdn.ckeditor.com/4.11.4/basic/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('editor')
+    </script>
 {% endblock %}
