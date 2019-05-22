@@ -1,3 +1,6 @@
+# -------------------------------------
+# Тело приложения
+# -------------------------------------
 
 from flask import Flask
 from flask_admin import Admin
@@ -11,7 +14,7 @@ from flask_security import Security
 from flask_security import current_user
 from flask_admin.contrib import sqla
 from flask import redirect, url_for, request
-
+# импорт встроенных модулей
 from config import Configuration
 from flask import jsonify
 
@@ -44,54 +47,46 @@ class BaseModelView(ModelView):
         return super(BaseModelView, self).on_model_change(form, model, is_created)
 
 
-class MyModelView(sqla.ModelView):
-    def is_accessible(self):
-        return (current_user.is_active and
-                current_user.is_authenticated and
-                current_user.has_role('superuser')
-        )
-
 # запеты на доступ к редактированию и админке гостям
 class HomeAdminView(AdminMixin, AdminIndexView):
     pass
 
-# Админка для админа
-class AdminView(AdminMixin, BaseModelView):
+class PostAdminView(AdminMixin, BaseModelView):
     @expose('/')
-    def home(self):
-        return self.render('admin/index.html')
-
-
-    @expose('/post')
-    def post(self):
+    def index(self):
         post = Post()
         massive = jsonify(id=post.id,
                         created=post.created,
                         title=post.title,
                         slug=post.slug,
                         body=post.body)
-        return self.render('admin/posts.html', post=post, massive=massive)
+        return self.render('admin/qindex.html', post=post, massive=massive)
     
-    @expose('/user')
-    def home(self):
-        return self.render('admin/users.html')
+class UserAdminView(AdminMixin, BaseModelView):
+    @expose('/')
+    def index(self):
+        user = User()
+        massive = jsonify(id=user.id,
+                        email=user.email,
+                        roles=user.roles)
+        return self.render('admin/users.html', user=user, massive=massive)
+    
+
+
+
+
+
 
 
 # подключаем админку
-admin = Admin(app, name='Admin', template_mode='bootstrap3')
+admin = Admin(app, name='Admin', base_template='/base.html', template_mode='bootstrap3')
 
 
-#admin.add_view(MyView(name='Custom Views', endpoint='customviews'))
-admin.add_view(AdminView(Post, db.session))
-#admin.add_view(MyModelView(Role, db.session))
-#admin.add_view(MyModelView(User, db.session))
+
 
 # подключаем вьюхи, ссылки на каждую таблицу в шапке
-#admin.add_view(ModelView(Role, db.session))
-admin.add_view(ModelView(User, db.session))
-#admin.add_view(ModelView(Post, db.session))
-
-
+admin.add_view(PostAdminView(Post, db.session))
+admin.add_view(UserAdminView(User, db.session))
 
 # права досупа
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)

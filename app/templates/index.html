@@ -4,15 +4,22 @@
     Home page
 {% endblock %}
 
+{% block content_title %}
 
-
+{% endblock %}
 
 {% block content %}
 
     <div class="jumbotron text-center">
         <h1>Hi user_name!</h1>
-        <p>If you want to review my blog, please click on the "Posts-button". </p> 
-        <br>Have a nice day!
+        <p>If you want to review my blog, please click on the "Posts-button". </p><br>
+        To review the admin page, please log in as: <br> 
+        
+        <p>
+        email = user<br>
+        password = user<br>
+        </p> 
+        <p>Have a nice day!</p>
     </div>
   
 {% endblock %}
