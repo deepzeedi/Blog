@@ -1,0 +1,9 @@
+{% for post in post.query.all() %}
+        <tbody>
+            <td>{{ post['id']|safe }}</td>
+            <td>{{ post['title']|safe }}</td>
+            <td>{{ post['body']|safe }}</td>
+            <td>{{ post['slug']|safe }}</td>
+            <td>{{ post['created']|safe }}</td>
+        </tbody>
+        {% endfor %}

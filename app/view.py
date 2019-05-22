@@ -4,6 +4,7 @@ from main import app
 from flask import render_template, flash, redirect
 from forms import LoginForm
 from flask_security import login_required
+from models import Post
 
 # запускаем декоратор для URL
 # инициализируем главную страницу шаблон
@@ -11,7 +12,6 @@ from flask_security import login_required
 def index():
     # можно задать переменную для функции
     # и связать с аргументом, передать на HTML страницу
-    
     return render_template('index.html')
 
 # инициализируем страницу "домой"
@@ -39,8 +39,20 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign IN', form=form)
 
+@app.route('/qindex')
+def qindex():
+    post = Post()
+    massive = jsonify(id=post.id,
+                        created=post.created,
+                        title=post.title,
+                        slug=post.slug,
+                        body=post.body)
+    return render_template('admin/qindex.html', massive=massive)
+
+
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+

@@ -1,5 +1,59 @@
 {% extends 'admin/master.html' %}
 
-{% import 'admin/static.html' as admin_static with context %}
-{% import 'admin/lib.html' as admin_lib with context %}
-{% import 'admin/layout.html' as admin_layout with context %}
+{% block content_title %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css"/>
+ 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.js"></script>
+
+{% endblock %}
+
+{% block body %}
+    <table id="example">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>body</th>
+                <th>slug</th>
+                <th>created</th>
+            </tr>
+        </thead>
+        {% for post in post.query.all() %}
+        <tbody>
+            <tr>
+                
+                <td class="text">{{ post['id']|safe }}</td>
+                <td class="text">{{ post['title']|safe }}</td>
+                <td class="text">{{ post['body'][:200]|safe }}</td>
+                <td class="text">{{ post['slug']|safe }}</td>
+                <td class="text">{{ post['created']|safe }}</td> 
+                
+            </tr>
+        </tbody>
+        {% endfor %}
+        <tfoot>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>body</th>
+                    <th>slug</th>
+                    <th>created</th>
+                </tr>
+        </tfoot>
+       
+        
+    </table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+
+
+{% endblock %}
+

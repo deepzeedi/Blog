@@ -13,7 +13,7 @@ from flask_admin.contrib import sqla
 from flask import redirect, url_for, request
 
 from config import Configuration
-import jsonify
+from flask import jsonify
 
 # создаем приложение
 app = Flask(__name__)
@@ -58,7 +58,16 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 class PostAdminView(AdminMixin, BaseModelView):
     @expose('/')
     def index(self):
-        return self.render('admin/post.html')
+        post = Post()
+        x = 'FUCKYEAH!!!!!!!!!!!!!!!!!!!!'
+        massive = jsonify(id=post.id,
+                        created=post.created,
+                        title=post.title,
+                        slug=post.slug,
+                        body=post.body)
+        return self.render('admin/qindex.html', post=post, x=x, massive=massive)
+
+
 
 
 
