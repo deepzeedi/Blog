@@ -26,6 +26,7 @@
    <table id="table" class="table  table-hover table-sm ">
       <thead class="thead-dark">
          <tr>
+            <th>edit</th>
             <th>id</th>
             <th>title</th>
             <th>body</th>
@@ -36,16 +37,18 @@
       <tbody>
          {% for post in post.query.all() %}
          <tr>
-            <td>{{ post['id']|safe }}</td>
-            <td>{{ post['title']|safe }}</td>
-            <td>{{ post['body'][:100]|safe }}</td>
-            <td>{{ post['slug']|safe }}</td>
-            <td>{{ post['created']|safe }}</td>
+            <td><a href="{{ url_for('posts.edit_post', slug=post.slug) }}">+</a></td>
+            <td><a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post['id']|safe }}</a></td>
+            <td><a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post['title']|safe }}</a></td>
+            <td><a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post['body'][:100]|safe }}</a></td>
+            <td><a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post['slug']|safe }}</a></td>
+            <td><a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post['created']|safe }}</a></td>
          </tr>
          {% endfor %}
       </tbody>
       <tfoot>
          <tr>
+            <th>e</th>
             <th>id</th>
             <th>title</th>
             <th>body</th>

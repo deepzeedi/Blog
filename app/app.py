@@ -55,31 +55,34 @@ class MyModelView(sqla.ModelView):
 class HomeAdminView(AdminMixin, AdminIndexView):
     pass
 
-class PostAdminView(AdminMixin, BaseModelView):
+# Админка для админа
+class AdminView(AdminMixin, BaseModelView):
     @expose('/')
-    def index(self):
+    def home(self):
+        return self.render('admin/index.html')
+
+
+    @expose('/post')
+    def post(self):
         post = Post()
         massive = jsonify(id=post.id,
                         created=post.created,
                         title=post.title,
                         slug=post.slug,
                         body=post.body)
-        return self.render('admin/qindex.html', post=post, massive=massive)
-
+        return self.render('admin/posts.html', post=post, massive=massive)
     
-
-
-
-
-
+    @expose('/user')
+    def home(self):
+        return self.render('admin/users.html')
 
 
 # подключаем админку
-admin = Admin(app, name='Admin', base_template='/base.html', template_mode='bootstrap3')
+admin = Admin(app, name='Admin', template_mode='bootstrap3')
 
 
 #admin.add_view(MyView(name='Custom Views', endpoint='customviews'))
-admin.add_view(PostAdminView(Post, db.session))
+admin.add_view(AdminView(Post, db.session))
 #admin.add_view(MyModelView(Role, db.session))
 #admin.add_view(MyModelView(User, db.session))
 
