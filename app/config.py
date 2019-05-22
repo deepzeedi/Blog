@@ -26,8 +26,5 @@ class Configuration(object):
     # метод шифрования
     SECURITY_PASSWORD_HASH = 'sha256_crypt'
 
-    # подключаем тему bootswatch для bootstrap
-    FLASK_ADMIN_SWATCH = 'simplex'
-
     # включаем автоматическую регистрацию запросов
     SQLALCHEMY_ECHO = True

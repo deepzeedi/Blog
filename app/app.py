@@ -59,13 +59,14 @@ class PostAdminView(AdminMixin, BaseModelView):
     @expose('/')
     def index(self):
         post = Post()
-        x = 'FUCKYEAH!!!!!!!!!!!!!!!!!!!!'
         massive = jsonify(id=post.id,
                         created=post.created,
                         title=post.title,
                         slug=post.slug,
                         body=post.body)
-        return self.render('admin/qindex.html', post=post, x=x, massive=massive)
+        return self.render('admin/qindex.html', post=post, massive=massive)
+
+    
 
 
 
@@ -74,7 +75,7 @@ class PostAdminView(AdminMixin, BaseModelView):
 
 
 # подключаем админку
-admin = Admin(app, template_mode='bootstrap3')
+admin = Admin(app, name='Admin', base_template='/base.html', template_mode='bootstrap3')
 
 
 #admin.add_view(MyView(name='Custom Views', endpoint='customviews'))

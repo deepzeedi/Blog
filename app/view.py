@@ -39,18 +39,6 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign IN', form=form)
 
-@app.route('/qindex')
-def qindex():
-    post = Post()
-    massive = jsonify(id=post.id,
-                        created=post.created,
-                        title=post.title,
-                        slug=post.slug,
-                        body=post.body)
-    return render_template('admin/qindex.html', massive=massive)
-
-
-
 
 @app.errorhandler(404)
 def page_not_found(e):
