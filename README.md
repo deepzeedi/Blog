@@ -12,10 +12,17 @@ It's list of what you need to do to launch project (for Linux cores):
 
        sudo pip3 install virtualenv
     
-3. launch the install.sh. This is an executable file. 
+3. launch the install.sh. This is an executable file.
 If you want to open in terminal in current directory:
 
        . launch.sh
+       
+This file:
+    1. download this repository in main root directory, 
+    2. install virtual environment,
+    3. install needed flask packages,
+    4. open in the browser page http://localhost:5000
+    5. launch main.py
 
 WebSite will be open on localhost:5000
 
