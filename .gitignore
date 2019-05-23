@@ -6,3 +6,6 @@ app/posts/__pycache__
 
 # все файлы с раширением .pyc
 app/*.pyc
+
+# venv
+venv/
