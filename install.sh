@@ -77,11 +77,6 @@ echo ''
 
 pip install requests
 
-
-echo '---Открываю браузер---'
-echo '--------Удачи!--------'
-x-www-browser http://localhost:5000
-
 echo ''
 echo '---Запускаю сайт---'
 echo '---на  localhost---'
