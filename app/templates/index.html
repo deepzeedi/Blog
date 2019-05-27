@@ -11,14 +11,20 @@
 {% block content %}
 
     <div class="jumbotron text-center">
-        <h1>Hi user_name!</h1>
+        {% if current_user.has_role('admin') %}
+        <h1>Hi, {{ current_user }}!</h1>
         <p>If you want to review my blog, please click on the "Posts-button". </p><br>
-        To review the admin page, please log in as: <br> 
-        
+        {% endif %}
+        {% if not current_user.has_role('admin') %}
+        <h1>Hi! </h1>
+        <p>If you want to review my blog, please log in as:
+        <br>
         <p>
-        email = user<br>
-        password = user<br>
-        </p> 
+            email = user<br>
+            password = user<br>
+            </p> 
+        {% endif %}
+       
         <p>Have a nice day!</p>
     </div>
   
