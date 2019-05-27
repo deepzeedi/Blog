@@ -15,7 +15,7 @@ It's list of what you need to do to launch project (for Linux cores):
 3. launch the install.sh. This is an executable file.
 If it file don't launch, please open its in terminal in current directory:
 
-       . launch.sh
+       . install.sh
        
 This file:
 1. download this repository in main root directory, 
