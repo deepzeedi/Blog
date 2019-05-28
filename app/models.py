@@ -20,7 +20,12 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
-        return f'<User {self.email}>'
+        if "@" in self.email:
+            self.email = self.email[:self.email.find("@")]
+        else:
+            self.email = self.email
+
+        return f'{self.email}'
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer, primary_key=True)
